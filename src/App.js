@@ -17,15 +17,21 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
-        this.getBooks();
+        this.getAllBooks();
   }
 
-  getBooks() {
+  getAllBooks() {
         BooksAPI.getAll().then(books => {
             console.log(books);
             this.setState({ books });
         });
     }
+
+  onChangeShelf = ( bookMoved, targetShelf ) => {
+    BooksAPI.update(bookMoved, targetShelf).then(() =>{
+      this.getAllBooks();
+    })
+  }
 
   render() {
     const { books } = this.state
@@ -45,16 +51,19 @@ class BooksApp extends React.Component {
                   type={'currentlyReading'}
                   title={'Currently Reading'}
                   books={books}
+                  onChangeShelf={this.onChangeShelf}
                 />
                 <BookShelf
                   type={'wantToRead'}
                   title={'Want to Read'}
                   books={books}
+                  onChangeShelf={this.onChangeShelf}
                 />
                 <BookShelf
                   type={'read'}
                   title={'Read'}
                   books={books}
+                  onChangeShelf={this.onChangeShelf}
                 />
               </div>
             </div>

@@ -5,7 +5,8 @@ class BookShelf extends Component {
 
 
   render() {
-    const { books, title, type } = this.props
+    const { books, title, type, onChangeShelf } = this.props
+
     return (
       <div className="bookshelf">
         <h2 className="bookshelf-title">{title}</h2>
@@ -14,7 +15,8 @@ class BookShelf extends Component {
           {books.filter( book => book.shelf === type).map((book) => (
               <Book
                 key={book.id}
-                book={book}/>
+                book={book}
+                onChangeShelf={onChangeShelf}/>
             ))
           }
           </ol>
