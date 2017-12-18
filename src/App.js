@@ -1,5 +1,5 @@
 import React from 'react'
-import SearchBook from './components/SearchBook.js'
+import SearchBook from './pages/SearchBook.js'
 import BookShelf from './components/BookShelf.js'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
