@@ -61,9 +61,10 @@ class SearchBook extends Component {
                   />
               ))
             }
-
           </ol>
         </div>
+        {//TODO add error 0 results here}
+        }
       </div>
     )
   }
