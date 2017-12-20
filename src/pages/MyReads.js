@@ -3,7 +3,7 @@ import Book from '../components/Book'
 import BookShelf from '../components/BookShelf'
 import * as BooksAPI from '../BooksAPI'
 
-class SearchBook extends Component {
+class MyReads extends Component {
   state = {
     books: []
   }
@@ -56,8 +56,12 @@ class SearchBook extends Component {
               />
             </div>
           </div>
+          <div className="open-search">
+            <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+          </div>
+        </div>
     )
   }
 }
 
-export default SearchBook
+export default MyReads
