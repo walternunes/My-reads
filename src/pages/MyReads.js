@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Book from '../components/Book'
+import { Link } from 'react-router-dom';
 import BookShelf from '../components/BookShelf'
 import * as BooksAPI from '../BooksAPI'
 
@@ -14,7 +14,6 @@ class MyReads extends Component {
 
   getAllBooks() {
         BooksAPI.getAll().then(books => {
-            console.log(books);
             this.setState({ books });
         });
     }
@@ -27,6 +26,9 @@ class MyReads extends Component {
 
   render() {
     const { books } = this.state
+    const typesOfShelf = [{ title: 'Currently Reading', type: 'currentlyReading' },
+                         { title: 'Want to Read', type: 'wantToRead' },
+                         { title: 'Read', type: 'read' }]
     return (
 
 
@@ -36,28 +38,19 @@ class MyReads extends Component {
           </div>
           <div className="list-books-content">
             <div>
+            { typesOfShelf.map(shelf => (
               <BookShelf
-                type={'currentlyReading'}
-                title={'Currently Reading'}
+                key={shelf.type}
+                title={shelf.title}
+                type={shelf.type}
                 books={books}
                 onChangeShelf={this.onChangeShelf}
               />
-              <BookShelf
-                type={'wantToRead'}
-                title={'Want to Read'}
-                books={books}
-                onChangeShelf={this.onChangeShelf}
-              />
-              <BookShelf
-                type={'read'}
-                title={'Read'}
-                books={books}
-                onChangeShelf={this.onChangeShelf}
-              />
+            ))}
             </div>
           </div>
           <div className="open-search">
-            <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+             <Link to="/search">Add a book</Link>
           </div>
         </div>
     )
