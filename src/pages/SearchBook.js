@@ -6,20 +6,25 @@ import * as BooksAPI from '../BooksAPI'
 class SearchBook extends Component {
   state = {
       query: '',
-      books: []
+      books: [],
+      toastMessage: ''
     }
 
+  showToast(toastMessage){
+      this.setState({toastMessage})
+      const toast = this.refs.simpleToast
+      toast.className = "show"
+      setTimeout(() => { toast.className = toast.className.replace("show", "")}, 3000)
+  }
 
   onChangeShelf = ( bookMoved, targetShelf ) => {
-      //TODO add a toast
-      BooksAPI.update(bookMoved, targetShelf).then(() =>{
-        if(targetShelf === 'none') {
-          alert('Book removed from the shelf')
-        } else {
-          alert('Book added to the shelf successfully')
-        }
-      })
-
+    BooksAPI.update(bookMoved, targetShelf).then(() =>{
+      if(targetShelf === 'none') {
+        this.showToast('Book removed from the shelf successfully')
+      } else {
+        this.showToast('Book added to the shelf successfully')
+      }
+    })
   }
 
   findBook(query){
@@ -39,9 +44,10 @@ class SearchBook extends Component {
 
 
   render() {
-    const {query, books} = this.state
-                         
+    const {query, books, toastMessage} = this.state
+
     return (
+
       <div className="search-books">
         <div className="search-books-bar">
           <Link className="close-search" to='/'>Close</Link>
@@ -53,6 +59,7 @@ class SearchBook extends Component {
 
           </div>
         </div>
+        <div ref="simpleToast" id="simpleToast">{toastMessage}</div>
         <div className="search-books-results">
           <ol className="books-grid">
             {  books.map((book) => (
@@ -68,6 +75,7 @@ class SearchBook extends Component {
         {//TODO add error 0 results here}
         }
       </div>
+
     )
   }
 }
