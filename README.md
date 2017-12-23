@@ -4,7 +4,7 @@ This project is part of React Nanodegree
 ### About
 Project 1: The MyReads project is a bookcase application that allows you to select and sort books you've read, are reading, or want to read. The project emphasizes using React to build the application and provides an API server and client library, which will be used to persist information and interact with the application.
 
-The API used can be accessed by: https://reactnd-books-api.udacity.com
+The API used can be accessed by: https://reactnd-books-api.udacity.com <br>
 Methods used:
 #### `getAll`
 
