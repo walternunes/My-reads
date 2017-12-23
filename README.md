@@ -48,4 +48,9 @@ search(query, maxResults)
 * Run the project typing ```npm start```
 * Access the page in ```http://localhost:3000/```
 
+### Resources
+* [Toast CSS](https://www.w3schools.com/howto/howto_js_snackbar.asp)
+* [Project based template](https://github.com/udacity/reactnd-project-myreads-starter)
+* [Book API](https://reactnd-books-api.udacity.com)
+
 
