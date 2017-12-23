@@ -7,41 +7,21 @@ class SearchBook extends Component {
   state = {
       query: '',
       books: [],
-      toastMessage: '',
       hasResults: false
     }
-
-  showToast(toastMessage){
-      this.setState({toastMessage})
-      const toast = this.refs.simpleToast
-      toast.className = "show"
-      setTimeout(() => { toast.className = toast.className.replace("show", "")}, 3000)
-  }
-
-  onChangeShelf = ( bookMoved, targetShelf ) => {
-    BooksAPI.update(bookMoved, targetShelf).then(() =>{
-      if(targetShelf === 'none') {
-        this.showToast('Book removed from the shelf successfully')
-      } else {
-        this.showToast('Book added to the shelf successfully')
-      }
-    })
-  }
 
   findBook(query){
     this.setState({query, hasResults: true})
     if(query) {
       BooksAPI.search(query).then(books => {
-        console.log(books)
            if(books.error){
                this.setState({books: [], hasResults: false})
            } else {
              if(this.props.shelfBooks.length > 0){
-               books.map(book => {
-                 this.props.shelfBooks.filter(search => search.id === book.id).map(test => (
-                   book.shelf = test.shelf
-                 )
-                 )
+               books.forEach(book => {
+                 this.props.shelfBooks.filter(search => search.id === book.id).map(foundBook => (
+                   book.shelf = foundBook.shelf
+                 ))
                })
              }
              this.setState({books, hasResults: true})
@@ -54,8 +34,8 @@ class SearchBook extends Component {
 
 
   render() {
-    const {shelfBooks} = this.props
-    const {query, books, toastMessage, hasResults} = this.state
+    const {onChangeShelf} = this.props
+    const {query, books, hasResults} = this.state
 
     return (
 
@@ -70,14 +50,13 @@ class SearchBook extends Component {
 
           </div>
         </div>
-        <div ref="simpleToast" id="simpleToast">{toastMessage}</div>
         <div className="search-books-results">
           <ol className="books-grid">
             {  books.map((book) => (
                 <Book
                   key={book.id}
                   book={book}
-                  onChangeShelf={this.onChangeShelf}
+                  onChangeShelf={onChangeShelf}
                   />
               ))
             }
