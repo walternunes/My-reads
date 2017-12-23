@@ -1,31 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import BookShelf from '../components/BookShelf'
-import * as BooksAPI from '../BooksAPI'
 
 class MyReads extends Component {
   state = {
-    books: []
+    books: [],
   }
 
-  componentDidMount() {
-        this.getAllBooks();
-  }
-
-  getAllBooks() {
-        BooksAPI.getAll().then(books => {
-            this.setState({ books });
-        });
-    }
-
-  onChangeShelf = ( bookMoved, targetShelf ) => {
-    BooksAPI.update(bookMoved, targetShelf).then(() =>{
-      this.getAllBooks();
-    })
-  }
 
   render() {
-    const { books } = this.state
+    const { books, onChangeShelf } = this.props
     const typesOfShelf = [{ title: 'Currently Reading', type: 'currentlyReading' },
                          { title: 'Want to Read', type: 'wantToRead' },
                          { title: 'Read', type: 'read' }]
@@ -44,7 +28,7 @@ class MyReads extends Component {
                 title={shelf.title}
                 type={shelf.type}
                 books={books}
-                onChangeShelf={this.onChangeShelf}
+                onChangeShelf={onChangeShelf}
               />
             ))}
             </div>

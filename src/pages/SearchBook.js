@@ -32,9 +32,18 @@ class SearchBook extends Component {
     this.setState({query, hasResults: true})
     if(query) {
       BooksAPI.search(query).then(books => {
+        console.log(books)
            if(books.error){
                this.setState({books: [], hasResults: false})
            } else {
+             if(this.props.shelfBooks.length > 0){
+               books.map(book => {
+                 this.props.shelfBooks.filter(search => search.id === book.id).map(test => (
+                   book.shelf = test.shelf
+                 )
+                 )
+               })
+             }
              this.setState({books, hasResults: true})
            }
          })
@@ -45,6 +54,7 @@ class SearchBook extends Component {
 
 
   render() {
+    const {shelfBooks} = this.props
     const {query, books, toastMessage, hasResults} = this.state
 
     return (
