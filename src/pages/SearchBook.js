@@ -7,7 +7,8 @@ class SearchBook extends Component {
   state = {
       query: '',
       books: [],
-      toastMessage: ''
+      toastMessage: '',
+      hasResults: false
     }
 
   showToast(toastMessage){
@@ -28,23 +29,23 @@ class SearchBook extends Component {
   }
 
   findBook(query){
-    this.setState({query})
+    this.setState({query, hasResults: true})
     if(query) {
       BooksAPI.search(query).then(books => {
            if(books.error){
-               this.setState({books: []})
+               this.setState({books: [], hasResults: false})
            } else {
-             this.setState({books})
+             this.setState({books, hasResults: true})
            }
          })
      } else {
-       this.setState({books: []})
+       this.setState({books: [], hasResults: false})
      }
   }
 
 
   render() {
-    const {query, books, toastMessage} = this.state
+    const {query, books, toastMessage, hasResults} = this.state
 
     return (
 
@@ -72,8 +73,9 @@ class SearchBook extends Component {
             }
           </ol>
         </div>
-        {//TODO add error 0 results here}
-        }
+        {query.length > 0 && !hasResults && (
+            <div>No results!</div>
+        )}
       </div>
 
     )
