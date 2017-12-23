@@ -50,13 +50,11 @@ class SearchBook extends Component {
         <div className="search-books-bar">
           <Link className="close-search" to='/'>Close</Link>
           <div className="search-books-input-wrapper">
-          <Debounce time="400" handler="onChange">
-
-              <input type="text" placeholder="Search by title or author"
-                
+           <Debounce time="400" handler="onChange">
+              <input type="text" placeholder="Search by title or author"  
                 onChange={(event) => this.findBook(event.target.value)}
               />
-</Debounce>
+           </Debounce>
           </div>
         </div>
         <div className="search-books-results">
