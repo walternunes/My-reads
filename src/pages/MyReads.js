@@ -1,22 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types'
 import BookShelf from '../components/BookShelf'
 
-class MyReads extends Component {
-  static propTypes = {
+const MyReads = (props) => {
+  MyReads.propTypes = {
       books: PropTypes.array.isRequired,
       onChangeShelf: PropTypes.func.isRequired
   }
-
-  render() {
-    const { books, onChangeShelf } = this.props
-    const typesOfShelf = [{ title: 'Currently Reading', type: 'currentlyReading' },
-                         { title: 'Want to Read', type: 'wantToRead' },
-                         { title: 'Read', type: 'read' }]
+  const { books, onChangeShelf } = props
+  const typesOfShelf = [{ title: 'Currently Reading', type: 'currentlyReading' },
+                       { title: 'Want to Read', type: 'wantToRead' },
+                       { title: 'Read', type: 'read' }]
     return (
-
-
         <div className="list-books">
           <div className="list-books-title">
             <h1>MyReads</h1>
@@ -39,7 +35,6 @@ class MyReads extends Component {
           </div>
         </div>
     )
-  }
 }
 
 export default MyReads
